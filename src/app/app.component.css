@@ -1,0 +1,8 @@
+.custom-messages {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.custom-messages .ui-messages-detail {
+  font-size: 0.8rem;
+}

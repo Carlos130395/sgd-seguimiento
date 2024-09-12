@@ -1,0 +1,235 @@
+<app-breadcrumb [active_item]="'Seguimiento'"></app-breadcrumb>
+
+<div *ngIf="loading" class="spinner-container">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+
+<p-card header="Seguimiento Documentario">
+  <form [formGroup]="searchForm" (ngSubmit)="buscarSeguimiento()">
+    <div class="search-container">
+      <div class="search-box">
+        <input
+          pInputText
+          formControlName="expediente"
+          id="expediente"
+          placeholder="Buscar Número de Expediente"
+        />
+      </div>
+
+      <div class="action-buttons">
+        <div class="action-buttons">
+          <button
+            pButton
+            type="submit"
+            icon="pi pi-search"
+            label="Buscar"
+            class="p-button-primary"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            label="Limpiar"
+            class="p-button-secondary"
+            (click)="limpiarBusqueda()"
+          ></button>
+        </div>
+
+        <button
+          pButton
+          type="button"
+          icon="pi pi-file-pdf"
+          label="Generar PDF"
+          class="p-button-danger"
+          (click)="exportPDF()"
+        ></button>
+        <button
+          pButton
+          type="button"
+          icon="pi pi-file-excel"
+          label="Generar Excel"
+          class="p-button-success"
+          (click)="exportarExcel()"
+        ></button>
+      </div>
+    </div>
+    <div *ngFor="let follow of follows; let index = index">
+      <p-fieldset [legend]="'Seguimiento N° ' + (index + 1)" *ngIf="isVisible">
+        <div class="card flex input-row">
+          <p-inputGroup class="input-group-item">
+            <input
+              pInputText
+              placeholder="Año"
+              disabled
+              [value]="follow?.anio"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              pInputText
+              placeholder="Número de Emisión"
+              disabled
+              [value]="follow?.numero_EMISION"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Tipo de Documento"
+              disabled
+              [value]="follow?.tipo_DOCUMENTO"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Número de Documento"
+              disabled
+              [value]="follow?.numero_DOC"
+            />
+          </p-inputGroup>
+        </div>
+
+        <div class="card flex input-row">
+          <p-inputGroup class="input-group-item">
+            <input
+              pInputText
+              placeholder="Siglas de Documento"
+              disabled
+              [value]="follow?.sigla_DOC"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Oficina Emisor"
+              disabled
+              [value]="follow?.dep_EMISOR"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Nombre del Emisor"
+              disabled
+              [value]="follow?.emisor"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Fecha de Emisión"
+              disabled
+              value="{{ follow?.fecha_EMISION | date : 'dd/MM/yyyy' }}"
+            />
+          </p-inputGroup>
+        </div>
+
+        <div class="card flex input-row">
+          <p-inputGroup class="input-group-item">
+            <textarea
+              pInputTextarea
+              placeholder="Asunto"
+              rows="5"
+              disabled
+              [value]="follow?.asunto"
+            ></textarea>
+          </p-inputGroup>
+        </div>
+
+        <div class="card flex input-row">
+          <p-inputGroup class="input-group-item">
+            <input
+              pInputText
+              placeholder="Oficina de Destino"
+              disabled
+              [value]="follow?.dep_DESTINO"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Persona de Destino"
+              disabled
+              [value]="follow?.persona_DESTINO"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Persona de Recibido"
+              disabled
+              [value]="follow?.persona_RECIBIDO"
+            />
+          </p-inputGroup>
+        </div>
+
+        <div class="card flex input-row">
+          <p-inputGroup class="input-group-item">
+            <input
+              pInputText
+              placeholder="Estado"
+              disabled
+              [value]="follow?.estado"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Fecha de Remisión"
+              disabled
+              value="{{ follow?.fecha_RECEPCION | date : 'dd/MM/yyyy' }}"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Fecha de Derivación"
+              disabled
+              value="{{ follow?.fecha_DERIVACION | date : 'dd/MM/yyyy' }}"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Fecha de Archivamiento"
+              disabled
+              value="{{ follow?.fecha_ARCHIVAMIENTO | date : 'dd/MM/yyyy' }}"
+            />
+          </p-inputGroup>
+
+          <p-inputGroup class="input-group-item">
+            <input
+              type="text"
+              pInputText
+              placeholder="Año de Expediente"
+              disabled
+              [value]="follow?.anio_EXP"
+            />
+          </p-inputGroup>
+        </div>
+      </p-fieldset>
+    </div>
+  </form>
+</p-card>

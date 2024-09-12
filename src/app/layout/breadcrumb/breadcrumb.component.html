@@ -1,0 +1,17 @@
+<div class="page-title">
+  <div class="row align-items-center justify-content-between">
+    <div class="col text-end">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/seguimiento">
+            <i class="pi pi-home"></i>
+          </a>
+        </li>
+        <li class="breadcrumb-item" *ngFor="let item of items">
+          {{ item }}
+        </li>
+        <li class="breadcrumb-item active">{{ active_item }}</li>
+      </ol>
+    </div>
+  </div>
+</div>

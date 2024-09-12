@@ -1,0 +1,118 @@
+<app-breadcrumb [active_item]="'Pendientes'"></app-breadcrumb>
+
+<p-card header="Reporte de Seguimiento">
+  <form [formGroup]="showEntries">
+    <div class="dropdown">
+      <p-dropdown
+        [options]="anio"
+        formControlName="anio"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="AÑO"
+        class="dropdown-year w-100"
+        (onChange)="onTypeSystemSelectionChange($event)"
+      ></p-dropdown>
+
+      <p-dropdown
+        [options]="months"
+        formControlName="mes"
+        optionLabel="name"
+        optionValue="id"
+        placeholder="MES"
+        class="dropdown-mes w-100"
+      ></p-dropdown>
+
+      <p-dropdown
+        [options]="dependencia"
+        formControlName="oficina"
+        optionLabel="deDependencia"
+        optionValue="coDependencia"
+        placeholder="DEPENDENCIAS"
+        class="dropdown-dependencias w-50"
+        (onChange)="onDependenciaSelectionChange($event)"
+      ></p-dropdown>
+
+      <button
+        pButton
+        type="button"
+        icon="pi pi-trash"
+        label="Limpiar"
+        class="p-button-secondary"
+        (click)="limpiarBusqueda()"
+      ></button>
+
+      <button
+        pButton
+        type="button"
+        icon="pi pi-file-pdf"
+        label="Generar PDF"
+        class="p-button-danger action-buttons"
+        (click)="createPdf()"
+      ></button>
+
+      <button
+        pButton
+        type="button"
+        icon="pi pi-file-excel"
+        label="Generar Excel"
+        class="p-button-success"
+        (click)="exportarExcel()"
+      ></button>
+    </div>
+  </form>
+
+  <div class="table-container">
+    <ng-container *ngIf="!isLoading; else loadingTemplate">
+      <p-table
+        [value]="reporte"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [paginator]="true"
+        [rows]="10"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Nº</th>
+            <th>NOMENCLATURA</th>
+            <th>SIGLAS OFICIALES</th>
+            <th>
+              Documentos pendiente de ser despachados (Jefe / Director /
+              Coordinador)
+            </th>
+            <th>Documentos Recibidos sin atender (Servidores)</th>
+            <th>Documentos No leídos (Servidores)</th>
+            <th>Total de pendiente (Servidores)</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-reporte let-i="rowIndex">
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ reporte.dependencias }}</td>
+            <td>{{ reporte.depAbreviatura }}</td>
+            <td>{{ reporte.pendienteDespachar }}</td>
+            <td>{{ reporte.recibidosSinAtender }}</td>
+            <td>{{ reporte.noLeidos }}</td>
+            <td>{{ reporte.totalPendientes }}</td>
+          </tr>
+        </ng-template>
+
+        <!-- Totales -->
+        <ng-template pTemplate="footer">
+          <tr>
+            <td colspan="3" style="text-align: right"><b>TOTAL</b></td>
+            <td>{{ totalPendienteDespachar }}</td>
+            <td>{{ totalRecibidosSinAtender }}</td>
+            <td>{{ totalNoLeidosDespachar }}</td>
+            <td>{{ totalPendiente }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </ng-container>
+
+    <ng-template #loadingTemplate>
+      <div class="spinner">
+        <p>Loading data...</p>
+      </div>
+    </ng-template>
+  </div>
+</p-card>

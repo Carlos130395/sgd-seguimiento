@@ -1,0 +1,52 @@
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.breadcrumb-item {
+  font-size: 0.9rem;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.breadcrumb-item a {
+  text-decoration: none;
+  color: #000;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+  color: #495057;
+  font-weight: 500;
+}
+
+.breadcrumb-item i {
+  margin-right: 5px;
+  font-size: 1.2rem;
+  color: #000;
+}
+
+h5 {
+  font-weight: bold;
+  color: black;
+}
